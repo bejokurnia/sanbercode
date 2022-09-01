@@ -35,7 +35,7 @@ class TestLogin(unittest.TestCase):  # TEST SCENARIO
         time.sleep(3)
         browser.find_element(By.XPATH,"/html/body/div/div[2]/form/input[1]").send_keys("tester@jagoqa.com") # isi email
         time.sleep(1)
-        browser.find_element(By.CSS_SELECTOR,"input#password").send_keys("hahahoho") # isi password
+        browser.find_element(By.CSS_SELECTOR,"input#password").send_keys("testespswd") # isi password
         time.sleep(1)
         browser.find_element(By.ID,"signin_login").click() # klik tombol sign in
         time.sleep(1)
@@ -52,7 +52,7 @@ class TestLogin(unittest.TestCase):  # TEST SCENARIO
         browser = self.browser #buka web browser
         browser.get("http://barru.pythonanywhere.com/daftar") # buka situs
         time.sleep(3)
-        browser.find_element(By.XPATH,"/html/body/div/div[2]/form/input[1]").send_keys("sahdasdg") # isi email
+        browser.find_element(By.XPATH,"/html/body/div/div[2]/form/input[1]").send_keys("wakhid") # isi email
         time.sleep(1)
         browser.find_element(By.CSS_SELECTOR,"input#password").send_keys("") # isi password
         time.sleep(1)
@@ -82,6 +82,47 @@ class TestLogin(unittest.TestCase):  # TEST SCENARIO
 
         self.assertIn('not found', text_atas)
         self.assertEqual(text_bawah, 'Email atau Password Anda Salah')
+
+    def test_a_empty_form_register(self): 
+        # steps
+        browser = self.browser #buka web browser
+        browser.get("http://barru.pythonanywhere.com/daftar") # buka situs
+        time.sleep(3)
+        browser.find_element(By.ID,"signUp").click() # klik tombol sign up
+        time.sleep(1)
+        browser.find_element(By.ID,"signup_register").click() # klik tombol sign in
+        time.sleep(1)
+
+        # validasi
+        text_atas = browser.find_element(By.ID,"swal2-title").text
+        text_bawah = browser.find_element(By.ID,"swal2-content").text
+
+        self.assertIn(text_atas)
+        self.assertEqual(text_bawah)
+
+    def test_a_success_or_exists_register(self): 
+        # steps
+        browser = self.browser #buka web browser
+        browser.get("http://barru.pythonanywhere.com/daftar") # buka situs
+        time.sleep(3)
+        browser.find_element(By.ID,"signUp").click() # klik tombol sign up
+        time.sleep(1)
+        browser.find_element(By.XPATH,"/html/body/div/div[1]/form/input[1]").send_keys("Wakhid Kurniawan") # isi email
+        time.sleep(1)
+        browser.find_element(By.XPATH,"/html/body/div/div[1]/form/input[2]").send_keys("kabirhari11@gmail.com") # isi email
+        time.sleep(1)
+        browser.find_element(By.CSS_SELECTOR,"input#password_register").send_keys("kabir") # isi password
+        time.sleep(1)
+        browser.find_element(By.ID,"signup_register").click() # klik tombol sign in
+        time.sleep(1)
+
+        # validasi
+        text_atas = browser.find_element(By.ID,"swal2-title").text
+        text_bawah = browser.find_element(By.ID,"swal2-content").text
+
+        self.assertIn(text_atas)
+        self.assertEqual(text_bawah)
+
 
     def tearDown(self): 
         self.browser.close() 
